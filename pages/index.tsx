@@ -12,7 +12,7 @@ export default function Home({ posts }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const data = await getPosts();
 
   return {

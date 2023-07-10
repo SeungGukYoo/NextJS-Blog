@@ -30,7 +30,6 @@ const getPost = async (id: string | string[]) => {
   }
 };
 
-// 정적으로 생성될 파일들의 경로를 미리 생성
 const getPostParams = async () => {
   try {
     const postDir = path.join(process.cwd(), "__posts");

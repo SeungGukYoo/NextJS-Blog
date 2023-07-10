@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import Layout from "../components/Layout";
 import { getPost, getPostParams } from "../util/getPost";
 

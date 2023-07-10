@@ -173,3 +173,4 @@ useEffect(() => {
 PostsLists에서 각각의 Post를 보여주기 위해서 컴포넌트를 생성해 주었지만 실수로 사용을 하지 못했다.
 `getPosts`와 `getPost`의 파일에 동일한 기능을 하거나 유사한 기능을 하는 함수가 중복되서 작성되었다.
 `remark-html`에서 빨간줄(경고)이 뜨게되는데, 아마도 타입에 대한 경고인 것 같다.
+현재 `remark-html`의 타입에 충돌이 존재하는 것 같다. commonJS형식으로 작성하면 에러는 발생하지 않지만 아예 `remark-html`을 사용하지 않고, `remark().use(remarkRehype).use(rehypeStringify)`으로 수정하니 타입에 대한 에러가 사라졌다.

@@ -1,9 +1,10 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
+import rehypeStringify from "rehype-stringify";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
+import remarkRehype from "remark-rehype/lib";
 
 const getPost = async (id: string | string[]) => {
   try {
@@ -16,7 +17,7 @@ const getPost = async (id: string | string[]) => {
 
     const { content, data } = matter(postFile);
 
-    const remarkContent = await remark().use(remarkHtml).use(remarkGfm).process(content);
+    const remarkContent = await remark().use(remarkRehype).use(rehypeStringify).use(remarkGfm).process(content);
 
     return {
       content: remarkContent.value,

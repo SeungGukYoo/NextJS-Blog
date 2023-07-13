@@ -1,12 +1,12 @@
-"use client";
-import React, { useCallback } from "react";
+import React from "react";
 
 function PostContent(props) {
   const { content } = props;
 
-  const createMarkdown = useCallback(() => {
+  const createMarkdown = () => {
     return { __html: content };
-  }, [content]);
+  };
+
   return (
     <div>
       <div dangerouslySetInnerHTML={createMarkdown()} />

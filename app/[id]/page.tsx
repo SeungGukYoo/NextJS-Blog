@@ -22,7 +22,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   };
 }
 
-export async function getPostContent(params) {
+async function getPostContent(params) {
   const post = await getPost(params.id);
   return post;
 }
@@ -31,9 +31,9 @@ async function Page({ params }) {
   const postData = await getPostContent(params);
 
   return (
-    <>
+    <div>
       <PostContent content={postData.content} />
-    </>
+    </div>
   );
 }
 export default Page;

@@ -1,7 +1,9 @@
 "use client";
 import React, { useCallback } from "react";
 
-function PostContent({ content }) {
+function PostContent(props) {
+  const { content } = props;
+
   const createMarkdown = useCallback(() => {
     return { __html: content };
   }, [content]);

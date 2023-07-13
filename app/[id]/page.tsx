@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { useCallback } from "react";
+import React from "react";
 import PostContent from "../../ui/postContent";
 import { getPost, getPostParams } from "../../util/getPost";
 
@@ -27,13 +27,13 @@ export async function getPostContent(params) {
   return post;
 }
 
-export default async function Page({ params }) {
+async function Page({ params }) {
   const postData = await getPostContent(params);
 
   return (
     <>
-      <h1>hihi</h1>
       <PostContent content={postData.content} />
     </>
   );
 }
+export default Page;

@@ -44,6 +44,7 @@ const getPostParams = async () => {
       };
       return obj;
     });
+
     return removeFileExtensions;
   } catch (error) {
     throw new Error(error);

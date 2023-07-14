@@ -13,7 +13,11 @@ interface IData {
 }
 
 const getPosts = async () => {
-  const data: IData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPosts`).then((result) => result.json());
+  const data: IData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPosts`, {
+    headers: {
+      Accept: "application/json",
+    },
+  }).then((result) => result.json());
   return data;
 };
 

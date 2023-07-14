@@ -5,9 +5,11 @@ import PostContent from "../../ui/postContent";
 type TData = { params: { id: string }[] };
 
 export async function generateStaticParams() {
-  const data: TData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostParams`).then((result) =>
-    result.json()
-  );
+  const data: TData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostParams`, {
+    headers: {
+      Accept: "application/json",
+    },
+  }).then((result) => result.json());
   return data.params;
 }
 
@@ -32,6 +34,9 @@ export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   const json: ContentMetaType = await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostContent?id=${params.id}`,
     {
+      headers: {
+        Accept: "application/json",
+      },
       method: "GET",
     }
   ).then((result) => result.json());
@@ -56,6 +61,9 @@ async function getPostContent(params: TParam) {
   const data: ContentMetaType = await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostContent?id=${params.id}`,
     {
+      headers: {
+        Accept: "application/json",
+      },
       method: "GET",
     }
   ).then((result) => result.json());

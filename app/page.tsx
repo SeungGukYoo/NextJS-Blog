@@ -1,12 +1,17 @@
 import React from "react";
 import Post from "../ui/post";
-import getPosts from "../util/getPosts";
+
+const getPosts = async () => {
+  const data = await fetch("http://localhost:3000/api/getPosts").then((result) => result.json());
+  return data;
+};
 
 async function Page() {
-  const posts = await getPosts();
+  const data = await getPosts();
+
   return (
     <div>
-      {posts.map((data, idx) => {
+      {data.posts.map((data, idx) => {
         return <Post data={data} key={idx} />;
       })}
     </div>

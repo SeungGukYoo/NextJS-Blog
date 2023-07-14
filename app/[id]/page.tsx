@@ -1,15 +1,17 @@
 import { Metadata } from "next";
 import React from "react";
 import PostContent from "../../ui/postContent";
-import { getPost, getPostParams } from "../../util/getPost";
 
 export async function generateStaticParams() {
-  const params = await getPostParams();
-  return [{ props: { params } }];
+  const data = await fetch("http://localhost:3000/api/getPostParams").then((result) => result.json());
+
+  return data.params;
 }
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { data } = await getPost(params.id);
-
+  const json = await fetch(`http://localhost:3000/api/getPostContent?id=${params.id}`, {
+    method: "GET",
+  }).then((result) => result.json());
+  const data = json.data;
   return {
     title: data?.title,
     description: data?.description,
@@ -23,8 +25,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 async function getPostContent(params) {
-  const post = await getPost(params.id);
-  return post;
+  const data = await fetch(`http://localhost:3000/api/getPostContent?id=${params.id}`, {
+    method: "GET",
+  }).then((result) => result.json());
+
+  return data;
 }
 
 async function Page({ params }) {

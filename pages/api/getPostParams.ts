@@ -1,7 +1,8 @@
 import fs from "fs";
+import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 
-const getPostParams = async (req, res) => {
+const getPostParams: (req: NextApiRequest, res: NextApiResponse) => Promise<void> = async (req, res) => {
   try {
     const postDir = path.join(process.cwd(), "__posts");
     const fileNamesArray = fs.readdirSync(postDir);

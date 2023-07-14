@@ -1,8 +1,9 @@
 import { readFileSync, readdirSync } from "fs";
 import matter from "gray-matter";
+import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 
-const getPosts = async (req, res) => {
+const getPosts: (req: NextApiRequest, res: NextApiResponse) => Promise<void> = async (req, res) => {
   try {
     const postDir = path.join(process.cwd(), "__posts");
     const fileNames = readdirSync(postDir);

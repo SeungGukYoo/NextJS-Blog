@@ -1,12 +1,13 @@
 import fs from "fs";
 import matter from "gray-matter";
+import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import rehypeStringify from "rehype-stringify";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype/lib";
 
-const getPostContent = async (req, res) => {
+const getPostContent: (req: NextApiRequest, res: NextApiResponse) => Promise<void> = async (req, res) => {
   try {
     const id = req.query.id;
     const postDir = path.join(process.cwd(), "__posts");
@@ -22,10 +23,7 @@ const getPostContent = async (req, res) => {
 
     res.status(200).json({ content: remarkContent.value, data: data });
   } catch (error) {
-    console.error(error);
-    return {
-      notFound: true,
-    };
+    throw new Error(error);
   }
 };
 

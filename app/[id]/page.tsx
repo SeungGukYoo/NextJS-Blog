@@ -2,16 +2,36 @@ import { Metadata } from "next";
 import React from "react";
 import PostContent from "../../ui/postContent";
 
+type TData = { params: { id: string }[] };
+
 export async function generateStaticParams() {
   let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
-  const data = await fetch(`${base_url}/api/getPostParams`).then((result) => result.json());
+  const data: TData = await fetch(`${base_url}/api/getPostParams`).then((result) => result.json());
 
   return data.params;
 }
-export async function generateMetadata({ params }): Promise<Metadata> {
+
+type TParams = {
+  params: {
+    id: string;
+  };
+};
+
+interface ContentMetaType {
+  content: string;
+  data: {
+    categories: string[];
+    date: string;
+    description: string;
+    slug: string;
+    tags: string[];
+    title: string;
+  };
+}
+export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
 
-  const json = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
+  const json: ContentMetaType = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",
   }).then((result) => result.json());
   const data = json.data;
@@ -27,17 +47,21 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   };
 }
 
-async function getPostContent(params) {
+type TParam = {
+  id: string;
+};
+
+async function getPostContent(params: TParam) {
   let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
 
-  const data = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
+  const data: ContentMetaType = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",
   }).then((result) => result.json());
 
   return data;
 }
 
-async function Page({ params }) {
+async function Page({ params }: { params: TParam }) {
   const postData = await getPostContent(params);
 
   return (

@@ -3,16 +3,13 @@ import React from "react";
 import PostContent from "../../ui/postContent";
 
 export async function generateStaticParams() {
-  let base_url =
-    process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_API_LOCAL_URL : process.env.NEXT_PUBLIC_VERCEL_URL;
-
+  let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
   const data = await fetch(`${base_url}/api/getPostParams`).then((result) => result.json());
 
   return data.params;
 }
 export async function generateMetadata({ params }): Promise<Metadata> {
-  let base_url =
-    process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_API_LOCAL_URL : process.env.NEXT_PUBLIC_VERCEL_URL;
+  let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
 
   const json = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",
@@ -31,10 +28,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 async function getPostContent(params) {
-  let base_url =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_API_LOCAL_URL
-      : process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL;
+  let base_url = process.env.NEXT_PUBLIC_NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_LOCAL_URL;
 
   const data = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",

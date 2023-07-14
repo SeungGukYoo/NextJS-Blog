@@ -5,12 +5,9 @@ import PostContent from "../../ui/postContent";
 type TData = { params: { id: string }[] };
 
 export async function generateStaticParams() {
-  let base_url = process.env.NEXT_PUBLIC_LOCAL_URL;
-
-  if (process.env.NODE_ENV === "production") {
-    base_url = process.env.NEXT_PUBLIC_VERCEL_URL;
-  }
-  const data: TData = await fetch(`${base_url}/api/getPostParams`).then((result) => result.json());
+  const data: TData = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostParams`).then((result) =>
+    result.json()
+  );
   return data.params;
 }
 
@@ -32,14 +29,12 @@ interface ContentMetaType {
   };
 }
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  let base_url = process.env.NEXT_PUBLIC_LOCAL_URL;
-
-  if (process.env.NODE_ENV === "production") {
-    base_url = process.env.NEXT_PUBLIC_VERCEL_URL;
-  }
-  const json: ContentMetaType = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
-    method: "GET",
-  }).then((result) => result.json());
+  const json: ContentMetaType = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostContent?id=${params.id}`,
+    {
+      method: "GET",
+    }
+  ).then((result) => result.json());
   const data = json.data;
   return {
     title: data?.title,
@@ -58,14 +53,12 @@ type TParam = {
 };
 
 async function getPostContent(params: TParam) {
-  let base_url = process.env.NEXT_PUBLIC_LOCAL_URL;
-
-  if (process.env.NODE_ENV === "production") {
-    base_url = process.env.NEXT_PUBLIC_VERCEL_URL;
-  }
-  const data: ContentMetaType = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
-    method: "GET",
-  }).then((result) => result.json());
+  const data: ContentMetaType = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getPostContent?id=${params.id}`,
+    {
+      method: "GET",
+    }
+  ).then((result) => result.json());
 
   return data;
 }

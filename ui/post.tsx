@@ -4,7 +4,6 @@ import React, { useCallback } from "react";
 
 function Post({ data }) {
   const router = useRouter();
-
   const movePost = useCallback(() => {
     router.push(data.path);
   }, [data, router]);

@@ -2,13 +2,16 @@ import { Metadata } from "next";
 import React from "react";
 import PostContent from "../../ui/postContent";
 
+let base_url =
+  process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_API_LOCAL_URL : process.env.NEXT_PUBLIC_API_URL;
+
 export async function generateStaticParams() {
-  const data = await fetch("http://localhost:3000/api/getPostParams").then((result) => result.json());
+  const data = await fetch(`${base_url}/api/getPostParams`).then((result) => result.json());
 
   return data.params;
 }
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const json = await fetch(`http://localhost:3000/api/getPostContent?id=${params.id}`, {
+  const json = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",
   }).then((result) => result.json());
   const data = json.data;
@@ -25,7 +28,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 async function getPostContent(params) {
-  const data = await fetch(`http://localhost:3000/api/getPostContent?id=${params.id}`, {
+  const data = await fetch(`${base_url}/api/getPostContent?id=${params.id}`, {
     method: "GET",
   }).then((result) => result.json());
 

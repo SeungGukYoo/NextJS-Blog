@@ -2,7 +2,9 @@ import React from "react";
 import Post from "../ui/post";
 
 const getPosts = async () => {
-  const data = await fetch("http://localhost:3000/api/getPosts").then((result) => result.json());
+  let base_url =
+    process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_API_LOCAL_URL : process.env.NEXT_PUBLIC_API_URL;
+  const data = await fetch(`${base_url}/api/getPosts`).then((result) => result.json());
   return data;
 };
 

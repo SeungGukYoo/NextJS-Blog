@@ -22,7 +22,6 @@ const getPosts = async (req, res) => {
       return dataObj;
     });
     res.status(200).json({ posts });
-    // return posts;
   } catch (error) {
     throw new Error(error);
   }
